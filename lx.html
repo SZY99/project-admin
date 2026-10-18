@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>购物车</title>
+    <style>
+        .cart {
+            width: 800px;
+            margin: 50px auto;
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .name {
+            width: 200px;
+        }
+
+        .price {
+            width: 100px;
+        }
+
+        .count {
+            display: flex;
+            align-items: center;
+        }
+
+        .count button {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .count input {
+            width: 40px;
+            text-align: center;
+            margin: 0 5px;
+        }
+
+        .total {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cart">
+        <div class="item">
+            <div class="name">手机</div>
+            <div class="price">¥ 1999</div>
+            <div class="count">
+                <button class="minus">-</button>
+                <input type="text" value="1" class="num">
+                <button class="plus">+</button>
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="name">耳机</div>
+            <div class="price">¥ 299</div>
+            <div class="count">
+                <button class="minus">-</button>
+                <input type="text" value="1" class="num">
+                <button class="plus">+</button>
+            </div>
+        </div>
+
+        <div class="total">合计：<span id="totalPrice">0</span> 元</div>
+    </div>
+
+    <script>
+        // 获取元素
+        const items = document.querySelectorAll('.item');
+        const totalPrice = document.getElementById('totalPrice');
+
+        // 计算总价函数
+        function calcTotal() {
+            let sum = 0;
+            items.forEach(item => {
+                // 取出单价
+                let price = parseInt(item.querySelector('.price').innerText.replace('¥ ', ''));
+                // 取出数量
+                let num = parseInt(item.querySelector('.num').value);
+                sum += price * num;
+            });
+            totalPrice.innerText = sum;
+        }
+
+        // 初始化计算总价
+        calcTotal();
+
+        // 遍历每个商品
+        items.forEach(item => {
+            const minus = item.querySelector('.minus');
+            const plus = item.querySelector('.plus');
+            const numInput = item.querySelector('.num');
+
+            // 减数量
+            minus.addEventListener('click', () => {
+                let num = parseInt(numInput.value);
+                if (num > 1) { // 数量最小为1
+                    num--;
+                    numInput.value = num;
+                    calcTotal();
+                }
+            });
+
+            // 加数量
+            plus.addEventListener('click', () => {
+                let num = parseInt(numInput.value);
+                num++;
+                numInput.value = num;
+                calcTotal();
+            });
+
+            // 手动输入数量
+            numInput.addEventListener('input', () => {
+                let num = parseInt(numInput.value) || 1;
+                if (num < 1) num = 1;
+                numInput.value = num;
+                calcTotal();
+            });
+        });
+    </script>
+</body>
+
+</html>

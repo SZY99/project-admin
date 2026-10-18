@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>登录 · 秋笙·项目管理</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      font-family: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      background: radial-gradient(1200px 800px at 20% 10%, #2a1b5e 0%, transparent 60%),
+                  radial-gradient(1000px 700px at 90% 90%, #123a5e 0%, transparent 55%),
+                  #0f1023;
+      color: #e8eaf6;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .card {
+      width: 380px; max-width: 92vw;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      padding: 36px 32px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    }
+    .logo {
+      width: 56px; height: 56px; border-radius: 16px;
+      background: linear-gradient(135deg,#7c5cff,#36c6f4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; margin: 0 auto 16px;
+    }
+    h1 { text-align: center; font-size: 20px; margin-bottom: 6px; }
+    .sub { text-align: center; color: #9aa3c7; font-size: 13px; margin-bottom: 26px; }
+    label { display: block; font-size: 13px; color: #b8c0e0; margin: 14px 0 6px; }
+    input {
+      width: 100%; height: 44px; padding: 0 14px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px; color: #fff; font-size: 15px; outline: none;
+    }
+    input:focus { border-color: #7c5cff; }
+    button {
+      width: 100%; height: 46px; margin-top: 22px;
+      border: 0; border-radius: 10px; cursor: pointer;
+      background: linear-gradient(135deg,#7c5cff,#36c6f4);
+      color: #fff; font-size: 16px; font-weight: 600;
+    }
+    button:hover { opacity: .92; }
+    .foot { text-align: center; margin-top: 18px; font-size: 13px; }
+    .foot a { color: #8fd3ff; text-decoration: none; }
+    .tip { text-align: center; color:#7f87ad; font-size:12px; margin-top:14px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">秋</div>
+    <h1>秋笙·项目管理</h1>
+    <div class="sub">请登录后进入管理后台</div>
+    <label>账号</label>
+    <input id="username" type="text" placeholder="admin" autocomplete="username" />
+    <label>密码</label>
+    <input id="password" type="password" placeholder="请输入密码" autocomplete="current-password" />
+    <button onclick="login()">登 录</button>
+    <div class="foot"><a href="blog.html">返回博客</a></div>
+    <div class="tip">演示账号 admin / 密码 123456</div>
+  </div>
+
+  <script>
+    // 纯前端校验（面试演示用；正式项目应由后端校验并下发 token）
+    const USER = 'admin';
+    const PASS = '123456';
+
+    function login() {
+      const u = document.getElementById('username').value.trim();
+      const p = document.getElementById('password').value.trim();
+      if (!u || !p) { alert('请输入账号和密码'); return; }
+      if (u === USER && p === PASS) {
+        localStorage.setItem('qs_auth', '1');
+        location.href = 'index.html';
+      } else {
+        alert('账号或密码错误');
+      }
+    }
+    document.getElementById('password').addEventListener('keydown', e => {
+      if (e.key === 'Enter') login();
+    });
+  </script>
+</body>
+</html>
