@@ -81,13 +81,14 @@ body {
 
 .login {
     position: absolute;
-    top: 100px;
-    right: 0;
-    width: 60px;
+    top: 96px;
+    right: 14px;
     height: 60px;
+    padding: 0 20px;
     background-color: #26c1ff;
-    right: 0 !important;
+    right: 14px !important;
     z-index: 999;
+    white-space: nowrap;
 }
 
 .login>a {
@@ -97,7 +98,24 @@ body {
     text-decoration: none;
     color: #fff;
     font-size: 20px;
+    white-space: nowrap;
     box-shadow: hsla(187, 100%, 52%, 0.445) 0 0 5px 0;
+}
+
+/* 管理后台入口：鼠标悬停显示下边框 */
+.admin-entry {
+    border-bottom: 2px solid transparent;
+    transition: border-bottom-color .2s ease, opacity .2s ease;
+}
+.admin-entry:hover {
+    border-bottom-color: #fff;
+    opacity: .92;
+}
+
+/* 回到顶部按钮保持 60x60 */
+.login.shang {
+    width: 60px;
+    padding: 0;
 }
 
 .shang {
